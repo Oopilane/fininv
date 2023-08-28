@@ -251,7 +251,10 @@ class StockController extends ApiController {
             $amountSold = $amountSold - $transactionAmount;
 
             // Profitability += (stock current price - old price) * amount
-            $profitability += ($transactions[$i]->getStock()->getValue() - $transactions[$i]->getPrice()) * $transactionAmount;
+            if ($transactionAmount <= 0)
+                $profitability += ($transactions[$i]->getStock()->getValue() - $transactions[$i]->getPrice()) * $amountSold;
+            else
+                $profitability += ($transactions[$i]->getStock()->getValue() - $transactions[$i]->getPrice()) * $transactionAmount;
 
 
             $this->entityManager->persist($transactions[$i]);
