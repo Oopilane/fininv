@@ -28,6 +28,7 @@ class RegistrationController extends ApiController {
         $password = $passHash->hashPassword($user,$newUser['password']);
         $user->setPassword($password);
         $user->setBalance(10000);
+        $user->setProfit(0);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
